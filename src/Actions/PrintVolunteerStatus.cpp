@@ -4,12 +4,14 @@ using namespace Action;
 
     PrintVolunteerStatus::PrintVolunteerStatus(int id):BaseAction(),VolunteerId(id){}
 
-    void PrintVolunteerStatus::act(WareHouse &wareHouse) override;
+    void PrintVolunteerStatus::act(WareHouse &wareHouse){
+        //TODO
+    }
 
-    PrintVolunteerStatus* PrintVolunteerStatus::clone() const override{
+    PrintVolunteerStatus* PrintVolunteerStatus::clone() const{
         return new PrintVolunteerStatus(VolunteerId);
     }
 
-    string PrintVolunteerStatus::toString() const override{
+    string PrintVolunteerStatus::toString() const{
         return "PrintVolunteerStatus of volunteer id: " + VolunteerId;
     }

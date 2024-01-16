@@ -4,12 +4,14 @@ using namespace Action;
 
 RestoreWareHouse::RestoreWareHouse():BaseAction(){}
 
-void RestoreWareHouse::act(WareHouse &wareHouse) override;
+void RestoreWareHouse::act(WareHouse &wareHouse){
+    //TODO
+}
 
-RestoreWareHouse* RestoreWareHouse::clone() const override{
+RestoreWareHouse* RestoreWareHouse::clone() const{
     return new RestoreWareHouse();
 }
 
-string RestoreWareHouse::toString() const override{
+string RestoreWareHouse::toString() const{
     return "RestoreWareHouse";
 }

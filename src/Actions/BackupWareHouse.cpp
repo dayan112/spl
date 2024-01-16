@@ -3,11 +3,13 @@
 using namespace Action;
 
 BackupWareHouse::BackupWareHouse():BaseAction(){}
-void act(WareHouse &wareHouse) override;
+void act(WareHouse &wareHouse){
+    //TODO
+}
 
-BackupWareHouse *BackupWareHouse::clone() const override{
+BackupWareHouse *BackupWareHouse::clone() const{
     return new BackupWareHouse();
 }
-string BackupWareHouse::toString() const override{
+string BackupWareHouse::toString() const{
     return "BackupWareHouse";
 }

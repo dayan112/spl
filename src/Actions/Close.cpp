@@ -4,8 +4,10 @@ using namespace Action;
 
 Close::Close():BaseAction(){}
 
-void Close::act(WareHouse &wareHouse) override;
+void Close::act(WareHouse &wareHouse){
+    //do sometthing
+}
 
-string Close::toString() const override{
+string Close::toString() const{
     return "Close Action";
 }

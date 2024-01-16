@@ -4,12 +4,14 @@ using namespace Action;
 
 PrintActionsLog::PrintActionsLog():BaseAction(){}
 
-void PrintActionsLog::act(WareHouse &wareHouse) override;
+void PrintActionsLog::act(WareHouse &wareHouse) {
+    //TODO
+}
 
-PrintActionsLog* PrintActionsLog::clone() const override{
+PrintActionsLog* PrintActionsLog::clone() const{
     return new PrintActionsLog();
 }
 
-string PrintActionsLog::toString() const override{
+string PrintActionsLog::toString() const{
     return "PrintActionsLog";
 }

@@ -77,7 +77,6 @@ namespace Action{
         public:
             PrintOrderStatus(int id);
             void act(WareHouse &wareHouse) override;
-            PrintOrderStatus *clone() const override;
             string toString() const override;
         private:
             const int orderId;

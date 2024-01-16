@@ -1,24 +1,23 @@
 #include"../../include/BaseAction.h"
-#include<iosteram>
+#include<iostream>
 
 using namespace Action;
 
 PrintOrderStatus::PrintOrderStatus(int id):BaseAction(),orderId(id){}
 
-void PrintOrderStatus::act(WareHouse &wareHouse) override{
-    Order::Order& ord = wareHouse.getOrder(orderId);
-    if(ord == nullptr){
-        error("Order doesn't exist");
-    }
-    else{
-        //TODO
-    }
+void PrintOrderStatus::act(WareHouse &wareHouse){
+    // Order::Order& ord(wareHouse.getOrder(orderId));
+    // if(ord == nullptr){
+    //     error("Order doesn't exist");
+    // }
+    // else{
+    //     std::cout << ord.toString();//mayne not
+    // }
 }
-
-PrintOrderStatus* PrintOrderStatusclone() const override{
+PrintOrderStatus *PrintOrderStatus::clone() const{
     return new PrintOrderStatus(orderId);
 }
 
-string PrintOrderStatus::toString() const override{
+string PrintOrderStatus::toString() const{
     return "PrintOrderStatus of order's id "+ orderId;
 }
