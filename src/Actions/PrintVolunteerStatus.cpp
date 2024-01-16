@@ -1,17 +1,15 @@
 #include"../../include/BaseAction.h"
 
-class PrintVolunteerStatus : public BaseAction {
-    PrintVolunteerStatus(int id):BaseAction(),VolunteerId(id){}
+using namespace Action;
 
-    void act(WareHouse &wareHouse) override;
+    PrintVolunteerStatus::PrintVolunteerStatus(int id):BaseAction(),VolunteerId(id){}
 
-    PrintVolunteerStatus *clone() const override{
+    void PrintVolunteerStatus::act(WareHouse &wareHouse) override;
+
+    PrintVolunteerStatus* PrintVolunteerStatus::clone() const override{
         return new PrintVolunteerStatus(VolunteerId);
     }
 
-    string toString() const override{
+    string PrintVolunteerStatus::toString() const override{
         return "PrintVolunteerStatus of volunteer id: " + VolunteerId;
     }
-    private:
-        const int VolunteerId;
-};

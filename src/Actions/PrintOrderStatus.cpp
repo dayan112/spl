@@ -1,18 +1,24 @@
 #include"../../include/BaseAction.h"
+#include<iosteram>
 
-class PrintOrderStatus : public BaseAction {
-    PrintOrderStatus(int id):BaseAction(),orderId(id){}
+using namespace Action;
 
-    void act(WareHouse &wareHouse) override;
+PrintOrderStatus::PrintOrderStatus(int id):BaseAction(),orderId(id){}
 
-    PrintOrderStatus *clone() const override{
-        return new PrintOrderStatus(orderId);
+void PrintOrderStatus::act(WareHouse &wareHouse) override{
+    Order::Order& ord = wareHouse.getOrder(orderId);
+    if(ord == nullptr){
+        error("Order doesn't exist");
     }
-
-    string toString() const override{
-        return "PrintOrderStatus of order's id "+ orderId;
+    else{
+        //TODO
     }
+}
 
-    private:
-        const int orderId;
-};
+PrintOrderStatus* PrintOrderStatusclone() const override{
+    return new PrintOrderStatus(orderId);
+}
+
+string PrintOrderStatus::toString() const override{
+    return "PrintOrderStatus of order's id "+ orderId;
+}

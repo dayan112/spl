@@ -1,19 +1,16 @@
 #include"../../include/BaseAction.h"
 
-class SimulateStep : public BaseAction {
+using namespace Action;
 
-    public:
-        SimulateStep(int numOfSteps):BaseAction(), numOfSteps(numOfSteps){}
+SimulateStep::SimulateStep(int numOfSteps):BaseAction(), numOfSteps(numOfSteps){}
 
-        void act(WareHouse &wareHouse) override;
+void SimulateStep::act(WareHouse &wareHouse) override{
+    
+}
 
-        std::string toString() const override{
-            return "Simulate %d Step" + numOfSteps;
-        }
-        SimulateStep *clone() const override{
-            return new SimulateStep(numOfSteps);
-        }
-
-    private:
-        const int numOfSteps;
-};
+std::string SimulateStep::toString() const override{
+    return "Simulate %d Step" + numOfSteps;
+}
+SimulateStep* SimulateStep::clone() const override{
+    return new SimulateStep(numOfSteps);
+}

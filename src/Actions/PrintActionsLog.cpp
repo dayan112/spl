@@ -1,15 +1,15 @@
 #include"../../include/BaseAction.h"
 
-class PrintActionsLog : public BaseAction {
-    PrintActionsLog():BaseAction(){}
+using namespace Action;
 
-    void act(WareHouse &wareHouse) override;
+PrintActionsLog::PrintActionsLog():BaseAction(){}
 
-    PrintActionsLog *clone() const override{
-        return new PrintActionsLog();
-    }
+void PrintActionsLog::act(WareHouse &wareHouse) override;
 
-    string toString() const override{
-        return "PrintActionsLog";
-    }
-};
+PrintActionsLog* PrintActionsLog::clone() const override{
+    return new PrintActionsLog();
+}
+
+string PrintActionsLog::toString() const override{
+    return "PrintActionsLog";
+}

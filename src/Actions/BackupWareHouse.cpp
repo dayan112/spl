@@ -1,15 +1,13 @@
 #include"../../include/BaseAction.h"
 
-class BackupWareHouse : public BaseAction {
-    public:
-        BackupWareHouse():BaseAction(){}
-        void act(WareHouse &wareHouse) override;
+using namespace Action;
 
-        BackupWareHouse *clone() const override{
-            return new BackupWareHouse();
-        }
-        string toString() const override{
-            return "BackupWareHouse";
-        }
-    private:
-};
+BackupWareHouse::BackupWareHouse():BaseAction(){}
+void act(WareHouse &wareHouse) override;
+
+BackupWareHouse *BackupWareHouse::clone() const override{
+    return new BackupWareHouse();
+}
+string BackupWareHouse::toString() const override{
+    return "BackupWareHouse";
+}

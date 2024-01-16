@@ -1,11 +1,11 @@
 #include"../../include/BaseAction.h"
 
-class Close : public BaseAction {
-    Close():BaseAction(){}
+using namespace Action;
 
-    void act(WareHouse &wareHouse) override;
+Close::Close():BaseAction(){}
 
-    string toString() const override{
-        return "Close Action";
-    }
-};
+void Close::act(WareHouse &wareHouse) override;
+
+string Close::toString() const override{
+    return "Close Action";
+}

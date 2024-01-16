@@ -1,15 +1,15 @@
 #include"../../include/BaseAction.h"
 
-class RestoreWareHouse : public BaseAction {
-    RestoreWareHouse():BaseAction(){}
+using namespace Action;
 
-    void act(WareHouse &wareHouse) override;
+RestoreWareHouse::RestoreWareHouse():BaseAction(){}
 
-    RestoreWareHouse *clone() const override{
-        return new RestoreWareHouse();
-    }
+void RestoreWareHouse::act(WareHouse &wareHouse) override;
 
-    string toString() const override{
-        return "RestoreWareHouse";
-    }
-};
+RestoreWareHouse* RestoreWareHouse::clone() const override{
+    return new RestoreWareHouse();
+}
+
+string RestoreWareHouse::toString() const override{
+    return "RestoreWareHouse";
+}

@@ -1,30 +1,22 @@
 #include"../../include/BaseAction.h"
 
+using namespace Action;
 
-class BaseAction{
-    BaseAction(){
-        errorMsg = "";
-    }
-    ActionStatus getStatus() const{
-        return status;
-    }
-    virtual void act(WareHouse& wareHouse)=0;
-    virtual string toString() const=0;
-    virtual BaseAction* clone() const=0;
+BaseAction::BaseAction(){
+    errorMsg = "";
+}
+ActionStatus BaseAction::getStatus() const{
+    return status;
+}
 
-    void complete(){
-        status = ActionStatus::COMPLETED;
-        errorMsg = "";
-    }
-    void error(string errorMsg){
-        status = ActionStatus::ERROR;
-        this->errorMsg = errorMsg;
-    }
-    string getErrorMsg() const{
-        return errorMsg;
-    }
-
-    private:
-        string errorMsg;
-        ActionStatus status;
-};
+void BaseAction::complete(){
+    status = ActionStatus::COMPLETED;
+    errorMsg = "";
+}
+void BaseAction::error(string errorMsg){
+    status = ActionStatus::ERROR;
+    this->errorMsg = errorMsg;
+}
+string BaseAction::getErrorMsg() const{
+    return errorMsg;
+}
