@@ -7,6 +7,7 @@ using std::vector;
 
 #define NO_ORDER -1
 
+
 class Volunteer {
     public:
         Volunteer(int id, const string &name);

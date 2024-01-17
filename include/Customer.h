@@ -31,7 +31,8 @@ class Customer {
 
 class SoldierCustomer: public Customer {
     public:
-        SoldierCustomer(int id, string name, int locationDistance, int maxOrders);
+        //I've added const to string name, need to check why TA didnt put it here
+        SoldierCustomer(int id, const string name, int locationDistance, int maxOrders);
         SoldierCustomer *clone() const override;
     
     private:
@@ -40,7 +41,9 @@ class SoldierCustomer: public Customer {
 
 class CivilianCustomer: public Customer {
     public:
-        CivilianCustomer(int id, string name, int locationDistance, int maxOrders);
+
+        //I've added const to string name, need to check why TA didnt put it here
+        CivilianCustomer(int id, const string name, int locationDistance, int maxOrders);
         CivilianCustomer *clone() const override;
     
     private:
