@@ -1,4 +1,3 @@
-
 output: main.o Order.o Volunteer.o DriverVolunteer.o LimitedDriverVolunteer.o CollectorVolunteer.o LimitedCollectorVolunteer.o Customers.o
 	g++ main.o Order.o Volunteer.o DriverVolunteer.o LimitedDriverVolunteer.o CollectorVolunteer.o LimitedCollectorVolunteer.o Customers.o -o output
 
