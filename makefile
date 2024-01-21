@@ -1,5 +1,5 @@
-output: main.o Order.o Volunteer.o DriverVolunteer.o LimitedDriverVolunteer.o CollectorVolunteer.o LimitedCollectorVolunteer.o Customers.o
-	g++ main.o Order.o Volunteer.o DriverVolunteer.o LimitedDriverVolunteer.o CollectorVolunteer.o LimitedCollectorVolunteer.o Customers.o -o output
+output: main.o Order.o Volunteer.o DriverVolunteer.o LimitedDriverVolunteer.o CollectorVolunteer.o LimitedCollectorVolunteer.o Customers.o FileHandler.o
+	g++ main.o Order.o Volunteer.o DriverVolunteer.o LimitedDriverVolunteer.o CollectorVolunteer.o LimitedCollectorVolunteer.o Customers.o FileHandler.o -o output
 
 # main.cpp to main.o
 main.o: src/main.cpp include/Order.h include/Volunteer.h include/Customer.h
@@ -26,6 +26,9 @@ LimitedDriverVolunteer.o: src/LimitedDriverVolunteer.cpp include/Volunteer.h
 
 Customers.o: src/Customers.cpp include/Customer.h 
 	g++ -c src/Customers.cpp -o Customers.o
+
+FileHandler.o: src/FileHandler.cpp include/FileHandler.h
+	g++ -c src/FileHandler.cpp -o FileHandler.o
 
 # Clean up 
 clean:

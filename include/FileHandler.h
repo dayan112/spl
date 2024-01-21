@@ -7,16 +7,27 @@
 
 class FileHandler{
     public:
+        FileHandler(const std::string path);  
 
-        ReadFile() = delete;//cannot create an instance of this class
+        void FileToWordsMatrix();
 
-        //parameter types changeable
-        static std::vector<std::vector<std::string>> FileToWordsMatrix(const std::string path);
+        std::string& getContent(){
+            return _content;
+        }
+        std::vector<std::vector<std::string>>& getWords(){
+            return _words;
+        }
     
     private:
-        static const std::string FileToString(const std::string path);//thee only place that opens files
-        static std::vector<std::string> splitString(const std::string& line, char c);
-        static int countChar(const string& str, char c);
+        const std::string _path;
+        std::string _content;
+        int _num_of_lines;
+        std::vector<std::vector<std::string>> _words;
 
-
+        void FileToString();//this is the only place that opens files
+        //string handle functions:
+        std::vector<std::string> getLines();
+        std::vector<std::string> lineToWord(const std::string& str);
+        
+        int countChar(const std::string& str, char c);
 };

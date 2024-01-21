@@ -5,54 +5,92 @@
 
 using namespace std;
 
-static vector<vector<string>*>& FileHandler::FileToWordsMatrix(const string path){
-    string content(FileToString(path));
-    vector<string>* lines = FileHandler::splitString(content,'\n');
-    
-    vector<vector<string>*>* res = new vector<vector<string>>();
-    
-    for(int i = 0; i < lines.size(), i++){
-        res->push_back(FileHandler::splitString(lines.at(i),' '));
-    }
+FileHandler::FileHandler(const std::string path):_path(path),_num_of_lines(1){}
 
-    vector<vector<string>*>& res_reference = *res;
-    return res;
+void FileHandler::FileToWordsMatrix(){
+    FileToString();
+    vector<string> temp;
+    vector<string> lines = this->getLines();
+
+    for(string str : lines){
+        if(str == "") continue;
+        _words.push_back(lineToWord(str));
+    }
 }
 
-static const string FileHandler::FileToString(const std::string path){
-    string content("");
-    ifstream readFile(path);
+void FileHandler::FileToString(){
+    ifstream readFile(_path);
 
-    readFile >> content;
+    if(readFile.is_open()){
+        char myChar;
+        while(readFile){
+            myChar = readFile.get();
+            _content += myChar;
+            if(myChar == '\n') _num_of_lines++;
+        }
+    }
 
     readFile.close();
-    return content;
 }
 
+vector<string> FileHandler::getLines(){
+    //_content is not empty.
+    string temp = "";
+    bool isHashtaged = false;
+    vector<string> res(_num_of_lines + 1);
 
-static vector<string>* FileHandler::splitString(const string& str, char c){
-    int vectorSize = FileHandler::countChar(str,c);
-    string word("");
-    vector<string>* res = new vector<string>(vectorSize);
-
-    for(int i=0; i<str.length; i++){
-        if(str[i] != c){
-            word+=str[i];
+    for(char c : _content){
+        if(c == '\n'){
+            if(temp != ""){
+                res.push_back(temp);
+                temp = "";
+            }
+            isHashtaged = false;
+        }
+        else if(isHashtaged){
+            continue;
+        }
+        else if(c == '#'){
+            isHashtaged = true;
         }
         else{
-            res->push_back(word);
-            word = "";
+            temp += c;
         }
+    }
+    if(temp != ""){
+        res.push_back(temp);
     }
 
     return res;
 }
 
-static int FileHandler::countChar(const string& str, char c){
+vector<string> FileHandler::lineToWord(const string& str){
+    int vectorSize = FileHandler::countChar(str,' ');
+    string temp("");
+    vector<string> res(vectorSize);
+    
+    for(char c : str){
+        if(c == ' '){
+            if(temp != ""){
+                res.push_back(temp);
+                temp = "";
+            }
+        }
+        else{
+            temp += c;
+        }
+    }
+    if(temp != ""){
+        res.push_back(temp);
+    }
+    return res;
+}
+
+int FileHandler::countChar(const string& str, char c){
     int count = 0;
     string word("");
 
-    for(int i=0; i<str.length; i++){
+    for(int i=0; i<str.length(); i++){
         if(str[i] == c){
             count++;
         }
@@ -61,3 +99,10 @@ static int FileHandler::countChar(const string& str, char c){
     return count;
 }
  
+vector<vector<string>>& FileHandler::getWords(){
+    return _words;
+}
+
+string& FileHandler::getContent(){
+    return _content;
+}
