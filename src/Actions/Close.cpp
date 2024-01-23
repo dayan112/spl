@@ -1,11 +1,10 @@
-#include"../../include/BaseAction.h"
+#include"../../include/Action.h"
 
-using namespace Action;
-
-Close::Close():BaseAction(){}
+Close::Close():Action(){}
 
 void Close::act(WareHouse &wareHouse){
-    //do sometthing
+    wareHouse.close();
+    wareHouse.addAction(this);
 }
 
 string Close::toString() const{

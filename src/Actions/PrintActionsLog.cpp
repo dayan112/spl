@@ -1,11 +1,18 @@
-#include"../../include/BaseAction.h"
+#include "../../include/Action.h"
+#include "../../include/WareHouse.h"
+#include <iostream>
 
-using namespace Action;
 
-PrintActionsLog::PrintActionsLog():BaseAction(){}
+using namespace std;
+
+PrintActionsLog::PrintActionsLog():Action(){}
 
 void PrintActionsLog::act(WareHouse &wareHouse) {
-    //TODO
+    // const vector<Action*>& actions = wareHouse.getActions();
+    // for (Action* a : actions){
+    //     cout << a->toString() << endl;
+    // }
+    //wareHouse.addAction((Action*)this);
 }
 
 PrintActionsLog* PrintActionsLog::clone() const{

@@ -1,33 +1,25 @@
 #include <iostream>
+#include "../include/WareHouse.h"
 // #include "../include/Order.h" 
 // #include "../include/Volunteer.h"
 // #include "../include/Customer.h"
 #include "../include/FileHandler.h"
 using namespace std;
 
+WareHouse* backup = nullptr;
 
 int main(int argc, char** argv){
-
-    FileHandler file("./configFileExample.txt");
-    file.FileHandler::FileToWordsMatrix();
-    vector<vector<string>>& words(file.getWords());
-
-    for(vector<string> line:words){
-        for(string word : line){
-            if((word[0] >= 'a' && word[0] <= 'z') || (word[0] >= 'A' && word[0] <= 'Z') 
-                || (word[0] >= '0' && word[0] <= '9')){   
-                cout << word << "|";
-            }
-        }
-        cout << endl;
+    if(argc!=2){
+        std::cout << "usage: warehouse <config_path>" << std::endl;
+        return 0;
     }
+    /*string configurationFile = argv[1];
+    WareHouse wareHouse(configurationFile);
+    wareHouse.start();
+    if(backup!=nullptr){
+    	delete backup;
+    	backup = nullptr;
+    }*/
     
-    // Order myOrder(1, 123, 50); 
-    // myOrder.setCollectorId(456); 
-    // cout << "Order test:\n" << myOrder.toString() << endl;
-        
-    // SoldierCustomer dayan(1,"dayan",20,3);
-    // cout << "Dayan mi? " << endl;
-
     return 0;
 }

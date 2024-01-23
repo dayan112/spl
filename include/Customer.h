@@ -14,7 +14,7 @@ class Customer {
         int getMaxOrders() const; //Returns maxOrders
         int getNumOrders() const; //Returns num of orders the customer has made so far
         bool canMakeOrder() const; //Returns true if the customer didn't reach max orders
-        vector<int> &getOrders() const;
+        const vector<int> &getOrdersIds() const;
         int addOrder(int orderId); //return OrderId if order was added successfully, -1 otherwise
 
         virtual Customer *clone() const = 0; // Return a copy of the customer
@@ -32,7 +32,7 @@ class Customer {
 class SoldierCustomer: public Customer {
     public:
         //I've added const to string name, need to check why TA didnt put it here
-        SoldierCustomer(int id, const string name, int locationDistance, int maxOrders);
+        SoldierCustomer(int id, const string& name, int locationDistance, int maxOrders);
         SoldierCustomer *clone() const override;
     
     private:
@@ -43,7 +43,7 @@ class CivilianCustomer: public Customer {
     public:
 
         //I've added const to string name, need to check why TA didnt put it here
-        CivilianCustomer(int id, const string name, int locationDistance, int maxOrders);
+        CivilianCustomer(int id, const string& name, int locationDistance, int maxOrders);
         CivilianCustomer *clone() const override;
     
     private:

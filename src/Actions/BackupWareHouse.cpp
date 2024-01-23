@@ -1,10 +1,10 @@
-#include"../../include/BaseAction.h"
+#include"../../include/Action.h"
 
-using namespace Action;
 
-BackupWareHouse::BackupWareHouse():BaseAction(){}
+
+BackupWareHouse::BackupWareHouse():Action(){}
 void act(WareHouse &wareHouse){
-    //TODO
+    // /todo
 }
 
 BackupWareHouse *BackupWareHouse::clone() const{

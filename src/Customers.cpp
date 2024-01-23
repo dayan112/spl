@@ -9,7 +9,7 @@ int Customer::getCustomerDistance() const {return locationDistance;}
 int Customer::getMaxOrders() const {return maxOrders;}
 int Customer::getNumOrders() const {return ordersId.size();}
 bool Customer::canMakeOrder() const {return ordersId.size() < maxOrders; } 
-vector<int> &Customer::getOrders() const {return ordersId;}
+const vector<int> &Customer::getOrdersIds() const {return ordersId;}
 
 //return OrderId if order was added successfully, -1 otherwise
 int Customer::addOrder(int orderId) {
@@ -22,10 +22,10 @@ int Customer::addOrder(int orderId) {
         }
     }
 
-SoldierCustomer::SoldierCustomer(int id, const string &name, int locationDistance, int maxOrders):
+SoldierCustomer::SoldierCustomer(int id, const string& name, int locationDistance, int maxOrders):
     Customer(id,name,locationDistance,maxOrders){}
 
-CivilianCustomer::CivilianCustomer(int id,const string &name, int locationDistance, int maxOrders):
+CivilianCustomer::CivilianCustomer(int id,const string& name, int locationDistance, int maxOrders):
     Customer(id,name,locationDistance,maxOrders){}
 
 SoldierCustomer* SoldierCustomer::clone() const {

@@ -1,13 +1,23 @@
-#include"../../include/BaseAction.h"
-
-using namespace Action;
+#include"../../include/Action.h"
+#include "../../include/WareHouse.h"
+#include "../../include/Customer.h"
+using namespace std;
 
 AddCustomer::AddCustomer(string customerName, string customerType, int distance, int maxOrders):
-    BaseAction(),customerName(customerName), customerType(((customerType == "soldier") || (customerType == "Soldier")) ? CustomerType::Soldier : CustomerType::Civilian),
+    Action(),customerName(customerName), customerType(((customerType == "soldier") || (customerType == "Soldier")) ? CustomerType::Soldier : CustomerType::Civilian),
     distance(distance), maxOrders(maxOrders){}
 
 void AddCustomer::act(WareHouse &wareHouse) {
-    //TODO
+    if(customerType == CustomerType::Soldier){
+        SoldierCustomer* new_c = new SoldierCustomer(10,customerName, distance, maxOrders);
+        wareHouse.addCustomer(new_c);
+    }
+    else{
+        CivilianCustomer* new_c = new CivilianCustomer(10,customerName, distance, maxOrders);
+        wareHouse.addCustomer(new_c);
+    }
+
+    wareHouse.addAction(this); 
 }
 
 AddCustomer *AddCustomer::clone() const {

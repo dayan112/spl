@@ -25,3 +25,7 @@ bool Volunteer::isBusy() const {
     return activeOrderId != NO_ORDER;
 }
 
+void Volunteer::clearCompletedOrder(){
+    completedOrderId = NO_ORDER;
+}
+

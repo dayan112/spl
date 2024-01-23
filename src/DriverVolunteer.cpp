@@ -17,7 +17,11 @@ int DriverVolunteer::getDistancePerStep() const {return distancePerStep;}
 //Decrease distanceLeft by distancePerStep,return true if distanceLeft<=0,false otherwise
 bool DriverVolunteer::decreaseDistanceLeft() {
     distanceLeft -= distancePerStep;
-    return distanceLeft <= 0;
+    if(distanceLeft <= 0){
+        distanceLeft = 0;
+        return true;
+    }
+    return false;
 }
 
 bool DriverVolunteer::hasOrdersLeft() const {
@@ -26,7 +30,7 @@ bool DriverVolunteer::hasOrdersLeft() const {
 
  // Signal if the volunteer is not busy and the order is within the maxDistance
 bool DriverVolunteer::canTakeOrder(const Order &order) const {
-    return hasOrdersLeft() && activeOrderId == NO_ORDER && order.getDistance() <= maxDistance;
+    return hasOrdersLeft() && activeOrderId == NO_ORDER && order.getDistance() <= maxDistance && order.getStatus() == OrderStatus::COLLECTING;
 }
 
 // Reset distanceLeft to order.distance

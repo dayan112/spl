@@ -1,17 +1,29 @@
-#include"../../include/BaseAction.h"
+#include"../../include/Action.h"
+#include "../../include/Volunteer.h"
+#include "../../include/WareHouse.h"
+#include<iostream>
+using namespace std;
 
-using namespace Action;
+PrintVolunteerStatus::PrintVolunteerStatus(int id):Action(),VolunteerId(id){}
 
-    PrintVolunteerStatus::PrintVolunteerStatus(int id):BaseAction(),VolunteerId(id){}
+void PrintVolunteerStatus::act(WareHouse &wareHouse){
+    cout << wareHouse.getVolunteer(VolunteerId).toString() << endl;
+}
 
-    void PrintVolunteerStatus::act(WareHouse &wareHouse){
-        //TODO
+PrintVolunteerStatus* PrintVolunteerStatus::clone() const{
+    return new PrintVolunteerStatus(VolunteerId);
+}
+
+string PrintVolunteerStatus::toString() const{
+    string str = "PrintVolunteerStatus of volunteer id: ";
+    str += VolunteerId;
+    str += " is ";
+
+    if(this->getStatus() == ActionStatus::ERROR){
+        str += "ERROR";
     }
-
-    PrintVolunteerStatus* PrintVolunteerStatus::clone() const{
-        return new PrintVolunteerStatus(VolunteerId);
+    else{
+        str += "COMPLETED";
     }
-
-    string PrintVolunteerStatus::toString() const{
-        return "PrintVolunteerStatus of volunteer id: " + VolunteerId;
-    }
+    return str;
+}

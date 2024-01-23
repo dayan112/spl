@@ -15,6 +15,8 @@ class Volunteer {
         const string &getName() const;
         int getActiveOrderId() const;
         int getCompletedOrderId() const;
+
+        void clearCompletedOrder();
         bool isBusy() const; // Signal whether the volunteer is currently processing an order    
         virtual bool hasOrdersLeft() const = 0; // Signal whether the volunteer didn't reach orders limit,Always true for CollectorVolunteer and DriverVolunteer
         virtual bool canTakeOrder(const Order &order) const = 0; // Signal if the volunteer can take the order.      

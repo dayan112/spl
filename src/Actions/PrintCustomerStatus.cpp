@@ -1,24 +1,29 @@
-#include"../../include/BaseAction.h"
+#include"../../include/Action.h"
+#include "../../include/WareHouse.h"
+#include "../../include/Customer.h"
 #include<iostream>
 
-using namespace Action;
 
-PrintCustomerStatus::PrintCustomerStatus(int customerId):BaseAction(),customerId(customerId){}
+PrintCustomerStatus::PrintCustomerStatus(int customerId):Action(),customerId(customerId){}
 
 void PrintCustomerStatus::act(WareHouse &wareHouse){
-    // Customer& cus = WareHouse.getCustomer();
-    // if(cus == nullptr){
-    //     error("Customer doesn't exist");
-    // }
-    // else{
-    //     std::cout << cus.toString();
-    // }
+    //cout << wareHouse.getCustomer(customerId);
 }
 
 PrintCustomerStatus* PrintCustomerStatus::clone() const{
     return new PrintCustomerStatus(customerId);
 }
 
-string PrintCustomerStatus::toString() const{
-    return "PrintCustomerStatus of customer id: "+customerId;
+string PrintCustomerStatus::toString() const {
+    string str = "PrintCustomerStatus of customer id: ";
+    str += customerId;
+    str += " is ";
+
+    if(this->getStatus() == ActionStatus::ERROR){
+        str += "ERROR";
+    }
+    else{
+        str += "COMPLETED";
+    }
+    return str;
 }

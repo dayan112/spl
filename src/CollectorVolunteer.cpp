@@ -36,7 +36,7 @@ bool CollectorVolunteer::hasOrdersLeft() const {
 }
 
 bool CollectorVolunteer::canTakeOrder(const Order &order) const {
-    return activeOrderId == NO_ORDER && hasOrdersLeft() && timeLeft == 0;
+    return activeOrderId == NO_ORDER && hasOrdersLeft() && timeLeft == 0 && order.getStatus() == OrderStatus::PENDING;
 }
 
 void CollectorVolunteer::acceptOrder(const Order &order) {

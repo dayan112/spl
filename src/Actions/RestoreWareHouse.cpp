@@ -1,8 +1,7 @@
-#include"../../include/BaseAction.h"
+#include"../../include/Action.h"
 
-using namespace Action;
 
-RestoreWareHouse::RestoreWareHouse():BaseAction(){}
+RestoreWareHouse::RestoreWareHouse():Action(){}
 
 void RestoreWareHouse::act(WareHouse &wareHouse){
     //TODO

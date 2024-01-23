@@ -1,23 +1,29 @@
-#include"../../include/BaseAction.h"
+#include"../../include/Action.h"
+#include "../../include/Order.h"
+#include "../../include/WareHouse.h"
 #include<iostream>
 
-using namespace Action;
+using namespace std;
 
-PrintOrderStatus::PrintOrderStatus(int id):BaseAction(),orderId(id){}
+PrintOrderStatus::PrintOrderStatus(int id):Action(),orderId(id){}
 
 void PrintOrderStatus::act(WareHouse &wareHouse){
-    // Order::Order& ord(wareHouse.getOrder(orderId));
-    // if(ord == nullptr){
-    //     error("Order doesn't exist");
-    // }
-    // else{
-    //     std::cout << ord.toString();//mayne not
-    // }
+    cout << wareHouse.getOrder(orderId).toString() << endl;
 }
 PrintOrderStatus *PrintOrderStatus::clone() const{
     return new PrintOrderStatus(orderId);
 }
 
 string PrintOrderStatus::toString() const{
-    return "PrintOrderStatus of order's id "+ orderId;
+    string str = "PrintOrderStatus of order's id: ";
+    str += orderId;
+    str += " is ";
+
+    if(this->getStatus() == ActionStatus::ERROR){
+        str += "ERROR";
+    }
+    else{
+        str += "COMPLETED";
+    }
+    return str;
 }
