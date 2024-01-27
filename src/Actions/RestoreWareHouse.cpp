@@ -4,7 +4,7 @@
 RestoreWareHouse::RestoreWareHouse():Action(){}
 
 void RestoreWareHouse::act(WareHouse &wareHouse){
-    //TODO
+    wareHouse = backup->clone();
 }
 
 RestoreWareHouse* RestoreWareHouse::clone() const{

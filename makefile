@@ -1,7 +1,7 @@
 output: main.o Order.o Volunteer.o DriverVolunteer.o LimitedDriverVolunteer.o CollectorVolunteer.o LimitedCollectorVolunteer.o Customers.o SimulateStep.o RestoreWareHouse.o PrintVolunteerStatus.o PrintOrderStatus.o PrintCustomerStatus.o PrintActionsLog.o AddOrder.o Close.o Action.o BackupWareHouse.o
 	g++ main.o Order.o Volunteer.o DriverVolunteer.o LimitedDriverVolunteer.o CollectorVolunteer.o LimitedCollectorVolunteer.o Customers.o SimulateStep.o RestoreWareHouse.o PrintVolunteerStatus.o PrintOrderStatus.o PrintCustomerStatus.o PrintActionsLog.o AddOrder.o Close.o Action.o BackupWareHouse.o -o output
 #	SimulateStep.o RestoreWareHouse.o PrintVolunteerStatus.o PrintOrderStatus.o
-#	PrintCustomerStatus.o PrintActionsLog.o OrderaAct.o Close.o BaseAction.o
+#	PrintCustomerStatus.o PrintActionsLog.o OrderaAct.o Close.o Action.o
 #	BackupWareHouse.o 
 
 #main.cpp to main.o

@@ -4,8 +4,8 @@
 SimulateStep.o: ./SimulateStep.cpp
 	g++ -c ./SimulateStep.cpp
 
-Action.o: ./BaseAction.cpp
-	g++ -c ./Actions/BaseAction.cpp
+Action.o: ./Action.cpp
+	g++ -c ./Actions/Action.cpp
 
 Order.o: ./Order.cpp
 	g++ -c ./Actions/Order.cpp

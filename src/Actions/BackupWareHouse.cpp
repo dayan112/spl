@@ -3,8 +3,10 @@
 
 
 BackupWareHouse::BackupWareHouse():Action(){}
+
 void act(WareHouse &wareHouse){
-    // /todo
+    backup = wareHouse->clone();
+    wareHouse.addAction(this);
 }
 
 BackupWareHouse *BackupWareHouse::clone() const{
