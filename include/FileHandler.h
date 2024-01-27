@@ -7,7 +7,7 @@
 
 class FileHandler{
     public:
-        FileHandler(const std::string path);  
+        FileHandler(const std::string &path);  
 
         void FileToWordsMatrix();
 

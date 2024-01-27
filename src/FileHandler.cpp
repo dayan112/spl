@@ -1,11 +1,11 @@
 #include<string.h>
 #include<iostream>
 #include<fstream>
-#include"../include/FileHandler.h"
+#include"FileHandler.h"
 
 using namespace std;
 
-FileHandler::FileHandler(const std::string path):_path(path),_num_of_lines(1){}
+FileHandler::FileHandler(const std::string& path):_path(path),_num_of_lines(1){}
 
 void FileHandler::FileToWordsMatrix(){
     FileToString();
