@@ -103,7 +103,8 @@ void WareHouse::start(){
         //testing
         cout <<"Input - "  + input << endl;
         Action* action = parseInputToAction(input); 
-        action->act(*this);  
+        if(action != nullptr)
+            action->act(*this);  
     }
 }
 
@@ -368,18 +369,18 @@ WareHouse::WareHouse(const WareHouse& other){
         }
 
         //Cleaning up this wearehouse to avoid memory leaks.
-        this->~WareHouse();
+        //this->~WareHouse();
 
         //Transfer data.
         isOpen = other.isOpen;
         customerCounter = other.customerCounter;
         volunteerCounter = other.volunteerCounter;
-        actions = std::move(other.actions);
-        volunteers = std::move(other.volunteers);
-        pendingOrders = std::move(other.pendingOrders);
-        inProcessOrders = std::move(other.inProcessOrders);
-        completedOrders = std::move(other.completedOrders);
-        customers = std::move(other.customers);
+        actions = other.actions;
+        volunteers = other.volunteers;
+        pendingOrders = other.pendingOrders;
+        inProcessOrders = other.inProcessOrders;
+        completedOrders = other.completedOrders;
+        customers = other.customers;
 
         other.customerCounter = 0;
         other.volunteerCounter = 0;

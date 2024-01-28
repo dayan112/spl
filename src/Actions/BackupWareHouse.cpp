@@ -5,7 +5,7 @@
 BackupWareHouse::BackupWareHouse():Action(){}
 
 void BackupWareHouse::act(WareHouse &wareHouse){
-    backup = wareHouse.clone();
+    backup = new WareHouse(wareHouse); //copy constructor
     wareHouse.addAction(this);
 }
 

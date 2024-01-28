@@ -4,9 +4,8 @@
 RestoreWareHouse::RestoreWareHouse():Action(){}
 
 void RestoreWareHouse::act(WareHouse &wareHouse){
-    if(backup){ 
-        wareHouse = std::move(*backup->clone());
-           
+    if(backup != nullptr){ 
+        wareHouse = std::move(*backup);
     }
     else{
         error("No backup available");
