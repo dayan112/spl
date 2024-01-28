@@ -8,7 +8,12 @@ using namespace std;
 PrintOrderStatus::PrintOrderStatus(int id):Action(),orderId(id){}
 
 void PrintOrderStatus::act(WareHouse &wareHouse){
-    cout << wareHouse.getOrder(orderId).toString() << endl;
+    Order& o = wareHouse.getOrder(orderId);
+    if(o.getId() != -1){
+        cout << o.toString() << endl;
+        return;
+    }
+    error("Order doesn’t exist");
 }
 PrintOrderStatus *PrintOrderStatus::clone() const{
     return new PrintOrderStatus(orderId);

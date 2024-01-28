@@ -6,6 +6,7 @@ using namespace std;
 #include "Order.h"
 #include "Customer.h"
 #include "Action.h"
+#include "Volunteer.h"
 
 class Volunteer;
 class Action;
@@ -16,7 +17,7 @@ class Action;
 class WareHouse {
 
     public:
-        WareHouse(const WareHouse& other);
+        WareHouse(const WareHouse& other); //Copy Constructor
         WareHouse(const string &configFilePath);//TODO
         void start();//TODO
         const vector<Action*> &getActions() const;
@@ -30,18 +31,22 @@ class WareHouse {
         
         //added functions:
 
+        string customerStatus(int customerID) const;
         void eraseVolunteer(Volunteer*);
-        void moveOrderForward(Order* o, int fromList, int toList);
-        void addAction(Action* action);
+        bool moveOrderForward(Order* o, int fromList, int toList);
         bool getOpeness()const;
-        //0 for customerCounter, 1 for volunteerCounter.
-        int getCounters(int i)const ;
+        //0 for customerCounter, 1 for orderds, 2 for volunteerCounter.
+        int getCounters(int i) const; 
+        // increments the relevant counter.
+        void incrementID(int i);
         //0 to get pendings, 1 to get inProcess, 2 to get completed
         const vector<Order*>& getOrders(int o_status) const; 
         const vector<Volunteer*>& getVolunteers() const;
         const vector<Customer*>& getCustomers() const;
-        WareHouse* clone() const;
-        ~WareHouse();
+        WareHouse* clone() const; 
+        ~WareHouse(); //Destructor
+        WareHouse& operator=(WareHouse&& other) noexcept; //Move Assigment
+
         void close();
         void open();
 
@@ -53,8 +58,15 @@ class WareHouse {
         vector<Order*> inProcessOrders;
         vector<Order*> completedOrders;
         vector<Customer*> customers;
+        
         int customerCounter; //For assigning unique customer IDs
         int volunteerCounter; //For assigning unique volunteer IDs
+        int orderCounter; //For assigning unique order ID's
         void setup(const string&);
         Action* parseInputToAction(string input);
+
+        //those are results for unfound objects 
+        static SoldierCustomer dummyCustomer;
+        static CollectorVolunteer dummyVolunteer;
+        static Order dummyOrder;
 };

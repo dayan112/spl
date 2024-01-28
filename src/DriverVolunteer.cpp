@@ -1,6 +1,6 @@
 #include "../include/Volunteer.h"
 using namespace std;
-
+#include <iostream>
 
 
 DriverVolunteer::DriverVolunteer(int id, string name, int maxDistance, int distancePerStep) 
@@ -30,6 +30,7 @@ bool DriverVolunteer::hasOrdersLeft() const {
 
  // Signal if the volunteer is not busy and the order is within the maxDistance
 bool DriverVolunteer::canTakeOrder(const Order &order) const {
+    
     return hasOrdersLeft() && activeOrderId == NO_ORDER && order.getDistance() <= maxDistance && order.getStatus() == OrderStatus::COLLECTING;
 }
 
@@ -44,18 +45,20 @@ void DriverVolunteer::step() {
     if(distanceLeft > 0){
         if(decreaseDistanceLeft()){
             completedOrderId = activeOrderId;
+            cout << getName() + " has finished proccessing order number - " + to_string(getActiveOrderId()) << endl;
             activeOrderId = NO_ORDER;
         }
     }
 } 
 
 string DriverVolunteer::toString() const {
+    string active_ord = activeOrderId == NO_ORDER ? "None" : to_string(activeOrderId);
     string result = "VolunteerID: " + to_string(getId()) + "\n"
                     + "isBusy: " + to_string(isBusy()) + "\n"
-                    + "OrderId: " + to_string(getActiveOrderId()) + "\n"
+                    + "OrderId: " + active_ord + "\n"
                     + "distance left: " + to_string(distanceLeft) + "\n"
                     + "distance per step " + to_string(distancePerStep) + "\n"
-                    + "ordersLeft: ";
+                    + "ordersLeft: No limit\n";
         
     return result;
 }

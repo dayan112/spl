@@ -1,11 +1,11 @@
 #include"../../include/Action.h"
-
+#include "../../include/Global.h"
 
 
 BackupWareHouse::BackupWareHouse():Action(){}
 
-void act(WareHouse &wareHouse){
-    backup = wareHouse->clone();
+void BackupWareHouse::act(WareHouse &wareHouse){
+    backup = wareHouse.clone();
     wareHouse.addAction(this);
 }
 

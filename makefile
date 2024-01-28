@@ -1,20 +1,21 @@
-output: main.o Order.o Volunteer.o DriverVolunteer.o LimitedDriverVolunteer.o CollectorVolunteer.o LimitedCollectorVolunteer.o Customers.o SimulateStep.o RestoreWareHouse.o PrintVolunteerStatus.o PrintOrderStatus.o PrintCustomerStatus.o PrintActionsLog.o AddOrder.o Close.o Action.o BackupWareHouse.o
-	g++ main.o Order.o Volunteer.o DriverVolunteer.o LimitedDriverVolunteer.o CollectorVolunteer.o LimitedCollectorVolunteer.o Customers.o SimulateStep.o RestoreWareHouse.o PrintVolunteerStatus.o PrintOrderStatus.o PrintCustomerStatus.o PrintActionsLog.o AddOrder.o Close.o Action.o BackupWareHouse.o -o output
-#	SimulateStep.o RestoreWareHouse.o PrintVolunteerStatus.o PrintOrderStatus.o
-#	PrintCustomerStatus.o PrintActionsLog.o OrderaAct.o Close.o Action.o
-#	BackupWareHouse.o 
+output: main.o FileHandler.o Order.o Warehouse.o Volunteer.o DriverVolunteer.o LimitedDriverVolunteer.o CollectorVolunteer.o LimitedCollectorVolunteer.o Customers.o SimulateStep.o RestoreWareHouse.o PrintVolunteerStatus.o PrintOrderStatus.o PrintCustomerStatus.o PrintActionsLog.o AddOrder.o Close.o Action.o BackupWareHouse.o AddCustomer.o
+	g++ main.o FileHandler.o Order.o Warehouse.o Volunteer.o DriverVolunteer.o LimitedDriverVolunteer.o CollectorVolunteer.o LimitedCollectorVolunteer.o Customers.o SimulateStep.o RestoreWareHouse.o PrintVolunteerStatus.o PrintOrderStatus.o PrintCustomerStatus.o PrintActionsLog.o AddOrder.o Close.o Action.o BackupWareHouse.o AddCustomer.o -o output
+#	Need to add fileHandler
 
 #main.cpp to main.o
 main.o: src/main.cpp include/Order.h include/Volunteer.h include/Customer.h include/Action.h
 	g++ -c src/main.cpp -o main.o
 
 
-FileHandler.o: src/FileHandler.cpp include/FileHaandler.h
+FileHandler.o: src/FileHandler.cpp include/FileHandler.h
 	g++ -c src/FileHandler.cpp -o FileHandler.o
 
 #Order.cpp to Order.o
 Order.o: src/Order.cpp include/Order.h
 	g++ -c src/Order.cpp -o Order.o
+
+Warehouse.o: src/Warehouse.cpp include/WareHouse.h
+	g++ -c src/Warehouse.cpp -o Warehouse.o
 
 Volunteer.o: src/Volunteer.cpp include/Volunteer.h
 	g++ -c src/Volunteer.cpp -o Volunteer.o
@@ -39,6 +40,9 @@ BackupWareHouse.o: src/Actions/BackupWareHouse.cpp include/Action.h
 
 Action.o: src/Actions/Action.cpp include/Action.h
 	g++ -c src/Actions/Action.cpp -o Action.o
+
+AddCustomer.o: src/Actions/AddCustomer.cpp include/Action.h
+	g++ -c src/Actions/AddCustomer.cpp -o AddCustomer.o
 
 Close.o: src/Actions/Close.cpp include/Action.h
 	g++ -c src/Actions/Close.cpp -o Close.o

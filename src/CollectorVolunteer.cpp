@@ -25,8 +25,11 @@ int CollectorVolunteer::getCoolDown() const { return coolDown;}
 int CollectorVolunteer::getTimeLeft() const {  return timeLeft;}
 
 bool CollectorVolunteer::decreaseCoolDown() {
+    //testing
+    cout << to_string(getId()) + " <- volunteer cd is " + to_string(timeLeft) << endl;
     if (timeLeft > 0) 
         timeLeft--;
+    
         
     return timeLeft == 0;
 }
@@ -45,11 +48,12 @@ void CollectorVolunteer::acceptOrder(const Order &order) {
 }
 
 string CollectorVolunteer::toString() const {
+    string active_ord = activeOrderId == NO_ORDER ? "None" : to_string(activeOrderId);
     string result = "VolunteerID: " + to_string(getId()) + "\n"
                     + "isBusy: " + to_string(isBusy()) + "\n"
-                    + "OrderId: " + to_string(getActiveOrderId()) + "\n"
+                    + "OrderId: " + active_ord + "\n"
                     + "timeLeft: " + to_string(timeLeft) + "\n"
-                    + "ordersLeft: ";
+                    + "ordersLeft: No Limit\n";
         
     return result;
    

@@ -1,10 +1,18 @@
 #include"../../include/Action.h"
-
+#include "../../include/Global.h"
 
 RestoreWareHouse::RestoreWareHouse():Action(){}
 
 void RestoreWareHouse::act(WareHouse &wareHouse){
-    wareHouse = backup->clone();
+    if(backup){ 
+        wareHouse = std::move(*backup->clone());
+           
+    }
+    else{
+        error("No backup available");
+    }
+    wareHouse.addAction(this);
+
 }
 
 RestoreWareHouse* RestoreWareHouse::clone() const{

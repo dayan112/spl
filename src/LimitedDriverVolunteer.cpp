@@ -1,5 +1,6 @@
 #include "../include/Volunteer.h"
 
+using namespace std;
 
 LimitedDriverVolunteer::LimitedDriverVolunteer(int id, const string &name, int maxDistance, int distancePerStep,int maxOrders)
     : DriverVolunteer(id, name, maxDistance, distancePerStep), maxOrders(maxOrders), ordersLeft(maxOrders) {}
@@ -27,11 +28,14 @@ int LimitedDriverVolunteer::getMaxOrders() const {return maxOrders;}
 int LimitedDriverVolunteer::getNumOrdersLeft() const {return ordersLeft;}
 
 string LimitedDriverVolunteer::toString() const {
-    string result = DriverVolunteer::toString();
-     
-    result +=  std::to_string(ordersLeft);
-    result += "\nMax Orders: " + std::to_string(maxOrders);
-    
-
+    string active_ord = activeOrderId == NO_ORDER ? "None" : to_string(activeOrderId);
+    string result = "VolunteerID: " + to_string(getId()) + "\n"
+                    + "isBusy: " + to_string(isBusy()) + "\n"
+                    + "OrderId: " + active_ord + "\n"
+                    + "distance left: " + to_string(getDistanceLeft()) + "\n"
+                    + "distance per step " + to_string(getDistancePerStep()) + "\n"
+                    + "ordersLeft: " + to_string(ordersLeft) + "\n"
+                    + "Max Orders: " + to_string(maxOrders) + "\n";
+        
     return result;
 }

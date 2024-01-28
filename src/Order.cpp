@@ -22,24 +22,33 @@ void Order::setDriverId(int driverId) { this->driverId = driverId; }
 OrderStatus Order::getStatus() const {return status;}
 
 
-
-
-
-const string Order::toString() const {
+string Order::statusToString() const{
     string status_temp;
     switch (this->status) {
         case OrderStatus::PENDING:
             status_temp = "Pending";
+            break;
         case OrderStatus::COLLECTING:
             status_temp = "Collecting";
+            break;
         case OrderStatus::COMPLETED:
             status_temp = "Completed";
+            break;
         case OrderStatus::DELIVERING:
             status_temp = "Delivering";
+            break;
         default:
             status_temp = "Unknown Status";
+            break;
         }
 
+    return status_temp;
+}
+
+
+const string Order::toString() const {
+    
+    string status_temp = statusToString();
     std::string result = "OrderId: " + std::to_string(id) + "\n"
                     + "OrderStatus: ";
         result += status_temp + "\n"
@@ -59,4 +68,8 @@ const string Order::toString() const {
         result += "None";
     
     return result;
+}
+
+Order* Order::clone() const {
+    return new Order(*this);
 }

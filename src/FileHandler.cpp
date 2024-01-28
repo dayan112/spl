@@ -1,7 +1,7 @@
 #include<string.h>
 #include<iostream>
 #include<fstream>
-#include"FileHandler.h"
+#include"../include/FileHandler.h"
 
 using namespace std;
 
@@ -99,3 +99,6 @@ int FileHandler::countChar(const string& str, char c){
     return count;
 }
  
+vector<vector<string>>& FileHandler::getWords(){
+    return this->_words;
+}

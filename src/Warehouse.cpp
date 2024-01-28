@@ -1,6 +1,6 @@
 #include <string>
 #include <vector>
-
+#include <algorithm>
 using namespace std;
 
 #include "../include/Volunteer.h"
@@ -8,9 +8,18 @@ using namespace std;
 #include "../include/Action.h"
 #include "../include/WareHouse.h"
 #include "../include/Order.h"
+#include "../include/FileHandler.h"
+#include <iostream>
 
-WareHouse::WareHouse(const string &configFilePath);//todo
 
+
+WareHouse::WareHouse(const string &configFilePath):isOpen(false), customerCounter(0), volunteerCounter(0), orderCounter(0){
+    this->setup(configFilePath);
+}
+
+SoldierCustomer WareHouse::dummyCustomer = SoldierCustomer(-1,"",-1,-1);
+CollectorVolunteer WareHouse::dummyVolunteer = CollectorVolunteer(-1,"",-1);
+Order WareHouse::dummyOrder = Order(-1,-1,-1);
 
 const vector<Order*>& WareHouse::getOrders(int o_status) const {
     if(o_status == 0)
@@ -30,11 +39,12 @@ const vector<Customer*>& WareHouse::getCustomers() const{
 }
 void WareHouse::addOrder(Order* order){
     pendingOrders.push_back(order);
+
 }
 void WareHouse::addCustomer(Customer* customer){
     customers.push_back(customer);
 }
-void WareHouse::addVolunteer(Action* volunteer){
+void WareHouse::addVolunteer(Volunteer* volunteer){
     volunteers.push_back(volunteer);
 }
 void WareHouse::addAction(Action* action){
@@ -50,7 +60,7 @@ Customer& WareHouse::getCustomer(int customerId) const {
             return *c; 
         }
     }
-    return Customer(-1,"",-1, -1); //customer not found
+    return dummyCustomer; //customer not found so we create a fake customer with id -1;
 
 }
 Volunteer& WareHouse::getVolunteer(int volunteerId) const {
@@ -59,7 +69,7 @@ Volunteer& WareHouse::getVolunteer(int volunteerId) const {
             return *v; 
         }
     }
-    return Volunteer(-1,""); //volunteer not found
+    return dummyVolunteer; //volunteer not found
 
 }
 
@@ -81,62 +91,68 @@ Order& WareHouse::getOrder(int orderId) const{
         }
     }
     
-    return Order(-1,-1,-1); //order not found
+    return dummyOrder; //order not found
 }
 
-void WareHouse::start(){    
+void WareHouse::start(){   
+    Action* action;
+    string input; 
     while(isOpen){
-        getline(cin, input)
-        Action* action = parseInputToAction(input);
-        action->act():  
+        cout << ">>>>> ";
+        getline(cin, input);
+        //testing
+        cout <<"Input - "  + input << endl;
+        Action* action = parseInputToAction(input); 
+        action->act(*this);  
     }
 }
 
 void WareHouse::eraseVolunteer(Volunteer* v){
-    for(int i = 0; i < volunteers.size(); i++){
-        if(volunteers[i] == v){
-            volunteers.erase(i);
-            delete v;
-            break;
-        }
+    auto it = std::find(volunteers.begin(), volunteers.end(), v);
+    if (it != volunteers.end()) {
+        volunteers.erase(it);
+        delete v;
     }
+    
 }
 
 bool WareHouse::moveOrderForward(Order* o, int fromList, int toList){
-    vector<Order*> curr_vector;
-    vector<Order*> next_vector;
+    vector<Order*>* curr_vector;
+    vector<Order*>* next_vector;
+    //testing
+    std::cout<< "Order moving forward  - \n" + std::to_string(o->getId()) << std::endl;  
     switch (fromList){
         case 0:
-            curr_vector = pendingOrders;
+            curr_vector = &pendingOrders;
             break;
         case 1:
-            curr_vector = inProcessOrders;
+            curr_vector = &inProcessOrders;
             break;
         default: //cant be moved from the last vector
             return false; 
     }
     switch (toList){
         case 0:
-            next_vector = pendingOrders;
+            next_vector = &pendingOrders;
             break;
         case 1:
-            next_vector = inProcessOrders;
+            next_vector = &inProcessOrders;
             break;
         case 2:
-            next_vector = completedOrders;
+            next_vector = &completedOrders;
             break;
         default: 
             return false; 
     }
     int ordersPlace = -1;
-    for(int i = 0; i < curr_vector.size(); i++){
-        if(curr_vector[i] == o){
+    for(int i = 0; i < curr_vector->size(); i++){
+        if((*curr_vector)[i] == o){
             ordersPlace = i;
         }
     }
     if(ordersPlace != -1){
-        curr_vector.erase(ordersPlace);
-        next_vector.push_back(o);
+        curr_vector->erase(curr_vector->begin() + ordersPlace);
+        next_vector->push_back(o);
         return true;
     }
     return false;
@@ -166,9 +182,9 @@ void WareHouse::setup(const string& path){
 
     for(vector<string> line : words){
         int start_index = 0;
-        for(int i = 0; i < line.size()){
+        for(int i = 0; i < line.size(); i++){
             if(line[i].size() == 0) continue;
-            if(line[i][o] >= 'a' & line[i][o] <= 'z'){
+            if(line[i][0] >= 'a' && line[i][0] <= 'z'){
                 start_index = i;
                 if(line.size() - start_index < 3)
                     start_index = 0;
@@ -247,49 +263,75 @@ Action* WareHouse::parseInputToAction(string input){
     
     string action = totalInput[0];
 
-    switch (action){
-        case "step":
-            if()
-            return new SimulateStep::SimulateStep((int)totalInput[1]);
-        case "order":
-            return new AddOrder::AddOrder((int)totalInput[1]);
-        case "customer":
-            return new AddCustomer::AddCustomer(totalInput[1], totalInput[2], (int)totalInput[3], (int)totalInput[4]);
-        case "customerStatus":
-            return new PrintCustomerStatus::PrintCustomerStatus((int)totalInput[1]);
-        case "orderStatus":
-            return new PrintOrderStatus::PrintOrderStatus((int)totalInput[1]);
-        case "volunteerStatus":
-            return new PrintVolunteerStatus::PrintVolunteerStatus((int)totalInput[1]);
-        case "log":
-            return new PrintActionsLog::PrintActionsLog();
-        case "close":
-            return new Close::Close();
-        case "backup":
-            return new BackupWareHouse::BackupWareHouse();
-        case "restore":
-            return new RestoreWareHouse::RestoreWareHouse();        
-        default:
-            break;
+    //testing
+    cout <<"action - "  + action << endl;
+    if(action == "step" && totalInput.size() > 1){
+        return new SimulateStep(std::stoi(totalInput[1]));
     }
+    else if(action == "restore"){
+        return new RestoreWareHouse();
+    }
+    else if(action == "backup"){
+        return new BackupWareHouse();
+    }
+    else if(action == "close"){
+        return new Close();
+    }
+    else if(action == "log"){
+        return new PrintActionsLog();
+    }
+    else if(action == "volunteerStatus" && totalInput.size() > 1){
+        return new PrintVolunteerStatus(std::stoi(totalInput[1]));
+    }
+    else if(action == "orderStatus" && totalInput.size() > 1){
+        return new PrintOrderStatus(std::stoi(totalInput[1]));
+    }
+    else if(action == "customerStatus" && totalInput.size() > 1){
+        return new PrintCustomerStatus(std::stoi(totalInput[1]));
+    }
+    else if(action == "customer" && totalInput.size() > 4){
+        return new AddCustomer(totalInput[1], totalInput[2], std::stoi(totalInput[3]), std::stoi(totalInput[4]));
+    }
+    else if(action == "order" && totalInput.size() > 1){
+        return new AddOrder(std::stoi(totalInput[1]));
+    }
+
+    return nullptr;    
 }
-bool WareHouse::getOpeness(){
+bool WareHouse::getOpeness() const{
     return isOpen;
 }
-
-int getCounters(int i){
-    if(i = 0){
+void WareHouse::incrementID(int i){
+    if(i == 0){
+        customerCounter++;
+        return;
+    }
+    if(i == 1){
+        orderCounter++;
+        return;
+    }
+    volunteerCounter++;
+    return;
+}
+int WareHouse::getCounters(int i) const {
+    if(i == 0){
+        
         return customerCounter;
     }
+    if(i == 1){
+        
+        return orderCounter;
+    }
+    
     return volunteerCounter;
 }
 
 
-WareHouse::WareHouse(WareHouse& other){
+WareHouse::WareHouse(const WareHouse& other){
     
-    isOpen = other->getOpeness();
-    customerCounter = other->getCounters(0);
-    volunteerCounter = other->getCounters(1);
+    isOpen = other.getOpeness();
+    customerCounter = other.getCounters(0);
+    volunteerCounter = other.getCounters(1);
 
     //Copy Actions
     for (const auto& action : other.getActions()) {
@@ -372,6 +414,32 @@ WareHouse::~WareHouse() {
 }
 
 
-WareHouse* WareHouse::clone(){
+WareHouse* WareHouse::clone() const{
     return new WareHouse(*this);
+}
+
+string WareHouse::customerStatus(int customerID) const{
+    Customer& c = getCustomer(customerID);
+    string result = "CustomerID: " + std::to_string(c.getId()) + "\n";
+    for(Order* o : pendingOrders){
+        if(o->getCustomerId() == c.getId()){
+            result += "OrderID:" + std::to_string(o->getId()) + "\n" +
+            "OrderStatus: " + o->statusToString() + "\n";
+        }
+    }
+    for(Order* o : inProcessOrders){
+        if(o->getCustomerId() == c.getId()){
+            result += "OrderID:" + std::to_string(o->getId()) + "\n" +
+            "OrderStatus: " + o->statusToString() + "\n";
+        }
+    }
+    for(Order* o : completedOrders){
+        if(o->getCustomerId() == c.getId()){
+            result += "OrderID:" + std::to_string(o->getId()) + "\n" +
+            "OrderStatus: " + o->statusToString() + "\n";
+        }
+    }
+    int ordLeft = (c.getMaxOrders() - c.getNumOrders());
+    result += "numOrdersLeft: " + std::to_string(ordLeft) + "\n";
+    return result;
 }

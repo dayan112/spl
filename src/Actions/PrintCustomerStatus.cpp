@@ -7,7 +7,11 @@
 PrintCustomerStatus::PrintCustomerStatus(int customerId):Action(),customerId(customerId){}
 
 void PrintCustomerStatus::act(WareHouse &wareHouse){
-    //cout << wareHouse.getCustomer(customerId);
+    if(wareHouse.getCustomer(customerId).getId() != -1){
+        cout << wareHouse.customerStatus(customerId);
+        return;
+    }
+    error("Customer doesn’t exist");
 }
 
 PrintCustomerStatus* PrintCustomerStatus::clone() const{

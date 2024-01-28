@@ -1,5 +1,5 @@
 #include "../include/Volunteer.h"
-
+using namespace std;
 
 LimitedCollectorVolunteer::LimitedCollectorVolunteer(int id, string name, int coolDown ,int maxOrders)
     : CollectorVolunteer(id, name, coolDown), maxOrders(maxOrders), ordersLeft(maxOrders) {}
@@ -27,11 +27,13 @@ int LimitedCollectorVolunteer::getMaxOrders() const {return maxOrders;}
 int LimitedCollectorVolunteer::getNumOrdersLeft() const {return ordersLeft;}
 
 string LimitedCollectorVolunteer::toString() const {
-    string result = CollectorVolunteer::toString();
-     
-    result +=  std::to_string(ordersLeft);
-    result += "\nMax Orders: " + std::to_string(maxOrders);
-    
-
+    string active_ord = activeOrderId == NO_ORDER ? "None" : to_string(activeOrderId);
+    string result = "VolunteerID: " + to_string(getId()) + "\n"
+                    + "isBusy: " + to_string(isBusy()) + "\n"
+                    + "OrderId: " + active_ord + "\n"
+                    + "timeLeft: " + to_string(getTimeLeft()) + "\n"
+                    + "ordersLeft: "+ to_string(ordersLeft) + "\n"
+                    + "Max Orders: " + to_string(maxOrders) + "\n";
+        
     return result;
 }

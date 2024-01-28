@@ -7,7 +7,12 @@ using namespace std;
 PrintVolunteerStatus::PrintVolunteerStatus(int id):Action(),VolunteerId(id){}
 
 void PrintVolunteerStatus::act(WareHouse &wareHouse){
-    cout << wareHouse.getVolunteer(VolunteerId).toString() << endl;
+    Volunteer& v = wareHouse.getVolunteer(VolunteerId);
+    if(v.getId() != -1 ){
+        cout << v.toString() << endl;
+        return;
+    }
+    error("Volunteer doesn’t exist");
 }
 
 PrintVolunteerStatus* PrintVolunteerStatus::clone() const{

@@ -3,17 +3,19 @@
 #include "../../include/Customer.h"
 using namespace std;
 
-AddCustomer::AddCustomer(string customerName, string customerType, int distance, int maxOrders):
+AddCustomer::AddCustomer(string const &customerName, string const &customerType, int distance, int maxOrders):
     Action(),customerName(customerName), customerType(((customerType == "soldier") || (customerType == "Soldier")) ? CustomerType::Soldier : CustomerType::Civilian),
     distance(distance), maxOrders(maxOrders){}
 
 void AddCustomer::act(WareHouse &wareHouse) {
     if(customerType == CustomerType::Soldier){
-        SoldierCustomer* new_c = new SoldierCustomer(10,customerName, distance, maxOrders);
+        SoldierCustomer* new_c = new SoldierCustomer(wareHouse.getCounters(0),customerName, distance, maxOrders);
+        wareHouse.incrementID(0);        
         wareHouse.addCustomer(new_c);
     }
     else{
-        CivilianCustomer* new_c = new CivilianCustomer(10,customerName, distance, maxOrders);
+        CivilianCustomer* new_c = new CivilianCustomer(wareHouse.getCounters(0),customerName, distance, maxOrders);
+        wareHouse.incrementID(0);
         wareHouse.addCustomer(new_c);
     }
 

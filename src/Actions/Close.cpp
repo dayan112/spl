@@ -7,6 +7,11 @@ void Close::act(WareHouse &wareHouse){
     wareHouse.addAction(this);
 }
 
+Close* Close::clone() const{
+    return new Close();
+}
+
+
 string Close::toString() const{
     return "Close Action";
 }

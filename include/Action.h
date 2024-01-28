@@ -4,7 +4,7 @@
 #include "WareHouse.h"
 using std::string;  
 using std::vector;
-
+using namespace std;
 class WareHouse;
 
 enum class ActionStatus{
