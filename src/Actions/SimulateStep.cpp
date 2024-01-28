@@ -52,7 +52,6 @@ void SimulateStep::act(WareHouse &wareHouse){
 
                               
                 for(Order* o : wareHouse.getOrders(1)){
-                    
                                             
                     //This is an order which finished its delieviring part, sof tipul.
                     if(o->getId() == ord.getId()){
@@ -63,7 +62,7 @@ void SimulateStep::act(WareHouse &wareHouse){
 
                         else if(ord.getStatus() == OrderStatus::DELIVERING){
                             wareHouse.moveOrderForward(o,1,2);
-                            ord->setStatus(OrderStatus::COMPLETED);
+                            ord.setStatus(OrderStatus::COMPLETED);
                         }
                     }
                 }
