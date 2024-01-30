@@ -18,7 +18,7 @@ class WareHouse {
 
     public:
         WareHouse(const WareHouse& other); //Copy Constructor
-        WareHouse(const string &configFilePath);//TODO
+        WareHouse(const string &configFilePath);
         void start();//TODO
         const vector<Action*> &getActions() const;
         void addOrder(Order* order);
@@ -46,6 +46,7 @@ class WareHouse {
         WareHouse* clone() const; 
         ~WareHouse(); //Destructor
         WareHouse& operator=(WareHouse&& other) noexcept; //Move Assigment
+        WareHouse& operator=(const WareHouse& other); 
 
         void close();
         void open();

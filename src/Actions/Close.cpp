@@ -3,8 +3,8 @@
 Close::Close():Action(){}
 
 void Close::act(WareHouse &wareHouse){
-    wareHouse.close();
     wareHouse.addAction(this);
+    wareHouse.close();
 }
 
 Close* Close::clone() const{

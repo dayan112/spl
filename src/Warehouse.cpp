@@ -9,6 +9,7 @@ using namespace std;
 #include "../include/WareHouse.h"
 #include "../include/Order.h"
 #include "../include/FileHandler.h"
+#include "../include/Global.h"
 #include <iostream>
 
 
@@ -359,59 +360,146 @@ WareHouse::WareHouse(const WareHouse& other){
     for (const auto& order : other.getOrders(2)) {
         completedOrders.push_back(order->clone()); 
     }
-    
-    
 }
 
- WareHouse& WareHouse::operator=(WareHouse&& other) noexcept {
-        if (this == &other) {
-            return *this;
-        }
-
-        //Cleaning up this wearehouse to avoid memory leaks.
-        //this->~WareHouse();
-
-        //Transfer data.
-        isOpen = other.isOpen;
-        customerCounter = other.customerCounter;
-        volunteerCounter = other.volunteerCounter;
-        actions = other.actions;
-        volunteers = other.volunteers;
-        pendingOrders = other.pendingOrders;
-        inProcessOrders = other.inProcessOrders;
-        completedOrders = other.completedOrders;
-        customers = other.customers;
-
-        other.customerCounter = 0;
-        other.volunteerCounter = 0;
-        
-
+WareHouse& WareHouse::operator=(const WareHouse& other) {
+    if (this == &other) {
         return *this;
+    }
+    isOpen = other.isOpen;
+    customerCounter = other.customerCounter;
+    volunteerCounter = other.volunteerCounter;
+
+    while(actions.size() > 0){
+        delete(actions.at(0));
+        actions.erase(actions.begin());
+    }
+    for (const auto& action : other.actions) {
+        actions.push_back(action->clone()); 
+    }
+
+    while(volunteers.size() > 0){
+        delete(volunteers.at(0));
+        volunteers.erase(volunteers.begin());
+    }
+    for (const auto& volunteer : other.volunteers) {
+        volunteers.push_back(volunteer->clone()); 
+    }
+
+    while(customers.size() > 0){
+        delete(customers.at(0));
+        customers.erase(customers.begin());
+    }
+    for (const auto& customer : other.customers) {
+        customers.push_back(customer->clone()); 
+    }
+
+    while(pendingOrders.size() > 0){
+        delete(pendingOrders.at(0));
+        pendingOrders.erase(pendingOrders.begin());
+    }
+    while(inProcessOrders.size() > 0){
+        delete(inProcessOrders.at(0));
+        inProcessOrders.erase(inProcessOrders.begin());
+    }
+    while(completedOrders.size() > 0){
+        delete(completedOrders.at(0));
+        completedOrders.erase(completedOrders.begin());
+    }
+    for (const auto& order : other.pendingOrders) {
+        pendingOrders.push_back(order->clone()); 
+    }
+    for (const auto& order : other.inProcessOrders) {
+        inProcessOrders.push_back(order->clone()); 
+    }
+    for (const auto& order : other.completedOrders) {
+        completedOrders.push_back(order->clone()); 
+    }
+
+    return *(this);
 }
+
+
+WareHouse& WareHouse::operator=(WareHouse&& other) noexcept {
+    if (this == &other) {
+        return *this;
+    }
+
+    //Transfer data.
+    //+ settings the pointers moved to null ptr
+    //to prevent double free
+    isOpen = other.isOpen;
+    customerCounter = other.customerCounter;
+    volunteerCounter = other.volunteerCounter;
+    actions = other.actions;
+    for(auto act : other.actions){
+        act = nullptr;
+    }
+    volunteers = other.volunteers;
+    for(auto act : other.volunteers){
+        act = nullptr;
+    }
+    pendingOrders = other.pendingOrders;
+    for(auto act : other.pendingOrders){
+        act = nullptr;
+    }
+    inProcessOrders = other.inProcessOrders;
+    for(auto act : other.inProcessOrders){
+        act = nullptr;
+    }
+    completedOrders = other.completedOrders;
+    for(auto ord : other.completedOrders){
+        ord = nullptr;
+    }
+    customers = other.customers;
+    for(auto cus : other.customers){
+        cus = nullptr;
+    }
+
+    other.customerCounter = 0;
+    other.volunteerCounter = 0;
+    
+
+    return *this;
+}
+
+
+
 
 WareHouse::~WareHouse() {
-        
-        for (auto action : actions) {
+    for (auto action : actions) {
+        if(action != nullptr){
             delete action;
+            action = nullptr;
         }
+    }
 
-        
-        for (auto volunteer : volunteers) {
+    
+    for (auto volunteer : volunteers) {
+        if(volunteer != nullptr){
             delete volunteer;
+            volunteer = nullptr;
         }
+    }
 
-        auto deleteOrders = [](const std::vector<Order*>& orders) {
-            for (auto order : orders) {
+    auto deleteOrders = [](const std::vector<Order*>& orders) {
+        for (auto order : orders) {
+            if(order != nullptr){
                 delete order;
+                order = nullptr;
             }
-        };
-        deleteOrders(pendingOrders);
-        deleteOrders(inProcessOrders);
-        deleteOrders(completedOrders);
-
-        for (auto customer : customers) {
-            delete customer;
         }
+    };
+    deleteOrders(pendingOrders);
+    deleteOrders(inProcessOrders);
+    deleteOrders(completedOrders);
+
+    for (auto customer : customers) {
+        if(customer != nullptr){
+            delete customer;
+            customer = nullptr;
+        }
+    }
 }
 
 

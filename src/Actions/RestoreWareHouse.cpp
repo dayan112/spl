@@ -1,11 +1,12 @@
 #include"../../include/Action.h"
 #include "../../include/Global.h"
+#include "../../include/WareHouse.h"
 
 RestoreWareHouse::RestoreWareHouse():Action(){}
 
 void RestoreWareHouse::act(WareHouse &wareHouse){
     if(backup != nullptr){ 
-        wareHouse = std::move(*backup);
+        wareHouse = *backup;
     }
     else{
         error("No backup available");

@@ -1,6 +1,7 @@
 output: main.o FileHandler.o Order.o Warehouse.o Volunteer.o DriverVolunteer.o LimitedDriverVolunteer.o CollectorVolunteer.o LimitedCollectorVolunteer.o Customers.o SimulateStep.o RestoreWareHouse.o PrintVolunteerStatus.o PrintOrderStatus.o PrintCustomerStatus.o PrintActionsLog.o AddOrder.o Close.o Action.o BackupWareHouse.o AddCustomer.o
 	g++ main.o FileHandler.o Order.o Warehouse.o Volunteer.o DriverVolunteer.o LimitedDriverVolunteer.o CollectorVolunteer.o LimitedCollectorVolunteer.o Customers.o SimulateStep.o RestoreWareHouse.o PrintVolunteerStatus.o PrintOrderStatus.o PrintCustomerStatus.o PrintActionsLog.o AddOrder.o Close.o Action.o BackupWareHouse.o AddCustomer.o -o output
-#	Need to add fileHandler
+	valgrind  --leak-check=full ./output ./bin/rest/input_file.txt
+#	Need to add fileHandler--show-leak-kinds=all --track-origins=yes
 
 #main.cpp to main.o
 main.o: src/main.cpp include/Order.h include/Volunteer.h include/Customer.h include/Action.h

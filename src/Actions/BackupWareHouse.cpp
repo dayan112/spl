@@ -5,6 +5,9 @@
 BackupWareHouse::BackupWareHouse():Action(){}
 
 void BackupWareHouse::act(WareHouse &wareHouse){
+    if(backup != nullptr){
+        delete backup;
+    }
     backup = new WareHouse(wareHouse); //copy constructor
     wareHouse.addAction(this);
 }
