@@ -14,11 +14,7 @@ void SimulateStep::act(WareHouse &wareHouse){
 
         //Accepting pending orders
         for(Order* o : wareHouse.getOrders(0)){
-            //testing
-            std::cout<< "Order in simulateStep pending orders: - \n" + o->toString() << std::endl;        
             for(Volunteer* v : voltuneers){
-                //testing
-                std::cout<< "Volunteer in simulateStep pending orders: - \n" + v->toString() << std::endl;
                 if(v->canTakeOrder(*o)){
                     v->acceptOrder(*o); //Here it checks if it needs a driver or collector
                     wareHouse.moveOrderForward(o,0,1);
@@ -73,16 +69,16 @@ void SimulateStep::act(WareHouse &wareHouse){
 
             //This volunteer reached max orders, and isn't working on an active order: goodbye and thank you
             if(!v->hasOrdersLeft() && v->getActiveOrderId() == NO_ORDER){
-                //testing 
-                cout << v->getName() + " deleted >>>>>>" << endl;
                 wareHouse.eraseVolunteer(v);
             }
         }
     }
+    complete();
+    wareHouse.addAction(this);
 }
 
 std::string SimulateStep::toString() const{
-    return "Simulate %d Step" + numOfSteps;
+    return "Step " + std::to_string(numOfSteps) + " " + statusToString() +  "\n";
 }
 SimulateStep* SimulateStep::clone() const{
     return new SimulateStep(numOfSteps);

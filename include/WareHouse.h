@@ -35,6 +35,7 @@ class WareHouse {
         void eraseVolunteer(Volunteer*);
         bool moveOrderForward(Order* o, int fromList, int toList);
         bool getOpeness()const;
+        string actionsToString() const;
         //0 for customerCounter, 1 for orderds, 2 for volunteerCounter.
         int getCounters(int i) const; 
         // increments the relevant counter.

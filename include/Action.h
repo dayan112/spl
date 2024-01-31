@@ -29,6 +29,7 @@ class Action{
     protected:
         void complete();
         void error(string errorMsg);
+        string statusToString() const;
         string getErrorMsg() const;
 
     private:

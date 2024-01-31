@@ -101,11 +101,10 @@ void WareHouse::start(){
     while(isOpen){
         cout << ">>>>> ";
         getline(cin, input);
-        //testing
-        cout <<"Input - "  + input << endl;
         Action* action = parseInputToAction(input); 
-        if(action != nullptr)
-            action->act(*this);  
+        if(action != nullptr){
+            action->act(*this);
+        }
     }
 }
 
@@ -121,8 +120,6 @@ void WareHouse::eraseVolunteer(Volunteer* v){
 bool WareHouse::moveOrderForward(Order* o, int fromList, int toList){
     vector<Order*>* curr_vector;
     vector<Order*>* next_vector;
-    //testing
-    std::cout<< "Order moving forward  - \n" + std::to_string(o->getId()) << std::endl;  
     switch (fromList){
         case 0:
             curr_vector = &pendingOrders;
@@ -173,7 +170,7 @@ void WareHouse::close(){
         result += o->toString() + "\n";
     }
     isOpen = false;
-    this->~WareHouse();
+    //this->~WareHouse();
 }
 
 void WareHouse::setup(const string& path){
@@ -265,8 +262,6 @@ Action* WareHouse::parseInputToAction(string input){
     
     string action = totalInput[0];
 
-    //testing
-    cout <<"action - "  + action << endl;
     if(action == "step" && totalInput.size() > 1){
         return new SimulateStep(std::stoi(totalInput[1]));
     }
@@ -300,6 +295,15 @@ Action* WareHouse::parseInputToAction(string input){
 
     return nullptr;    
 }
+
+string WareHouse::actionsToString() const{
+    string res("");
+    for (Action* a : actions){
+        res += a->toString();
+    }
+    return res;
+}
+
 bool WareHouse::getOpeness() const{
     return isOpen;
 }

@@ -10,9 +10,12 @@ void PrintVolunteerStatus::act(WareHouse &wareHouse){
     Volunteer& v = wareHouse.getVolunteer(VolunteerId);
     if(v.getId() != -1 ){
         cout << v.toString() << endl;
-        return;
+        complete();
     }
-    error("Volunteer doesn’t exist");
+    else{
+        error("Volunteer doesn’t exist");
+    }
+    wareHouse.addAction(this);
 }
 
 PrintVolunteerStatus* PrintVolunteerStatus::clone() const{
@@ -20,15 +23,6 @@ PrintVolunteerStatus* PrintVolunteerStatus::clone() const{
 }
 
 string PrintVolunteerStatus::toString() const{
-    string str = "PrintVolunteerStatus of volunteer id: ";
-    str += VolunteerId;
-    str += " is ";
-
-    if(this->getStatus() == ActionStatus::ERROR){
-        str += "ERROR";
-    }
-    else{
-        str += "COMPLETED";
-    }
+    string str = "volunteerStatus " + std::to_string(VolunteerId) + " " + statusToString() + "\n";
     return str;
 }

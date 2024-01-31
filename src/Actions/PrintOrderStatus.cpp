@@ -11,24 +11,18 @@ void PrintOrderStatus::act(WareHouse &wareHouse){
     Order& o = wareHouse.getOrder(orderId);
     if(o.getId() != -1){
         cout << o.toString() << endl;
-        return;
+        complete();
     }
-    error("Order doesn’t exist");
+    else{
+        error("Order doesn’t exist");
+    }
+    wareHouse.addAction(this);
 }
 PrintOrderStatus *PrintOrderStatus::clone() const{
     return new PrintOrderStatus(orderId);
 }
 
 string PrintOrderStatus::toString() const{
-    string str = "PrintOrderStatus of order's id: ";
-    str += orderId;
-    str += " is ";
-
-    if(this->getStatus() == ActionStatus::ERROR){
-        str += "ERROR";
-    }
-    else{
-        str += "COMPLETED";
-    }
+    string str = "orderStatus " + std::to_string(orderId) + " " + statusToString() + "\n";
     return str;
 }

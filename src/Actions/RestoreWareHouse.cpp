@@ -7,12 +7,13 @@ RestoreWareHouse::RestoreWareHouse():Action(){}
 void RestoreWareHouse::act(WareHouse &wareHouse){
     if(backup != nullptr){ 
         wareHouse = *backup;
+        complete();
     }
     else{
         error("No backup available");
     }
-    wareHouse.addAction(this);
 
+    wareHouse.addAction(this);
 }
 
 RestoreWareHouse* RestoreWareHouse::clone() const{
@@ -20,5 +21,6 @@ RestoreWareHouse* RestoreWareHouse::clone() const{
 }
 
 string RestoreWareHouse::toString() const{
-    return "RestoreWareHouse";
+    return "restore " + statusToString() + "\n";
+    
 }

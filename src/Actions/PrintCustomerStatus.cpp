@@ -9,9 +9,12 @@ PrintCustomerStatus::PrintCustomerStatus(int customerId):Action(),customerId(cus
 void PrintCustomerStatus::act(WareHouse &wareHouse){
     if(wareHouse.getCustomer(customerId).getId() != -1){
         cout << wareHouse.customerStatus(customerId);
-        return;
+        complete();
     }
-    error("Customer doesn’t exist");
+    else{
+        error("Customer doesn’t exist");
+    }
+    wareHouse.addAction(this);
 }
 
 PrintCustomerStatus* PrintCustomerStatus::clone() const{
@@ -19,15 +22,6 @@ PrintCustomerStatus* PrintCustomerStatus::clone() const{
 }
 
 string PrintCustomerStatus::toString() const {
-    string str = "PrintCustomerStatus of customer id: ";
-    str += customerId;
-    str += " is ";
-
-    if(this->getStatus() == ActionStatus::ERROR){
-        str += "ERROR";
-    }
-    else{
-        str += "COMPLETED";
-    }
+    string str = "customerStatus " + std::to_string(customerId) + " " + statusToString() + "\n";
     return str;
 }

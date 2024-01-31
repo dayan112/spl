@@ -9,12 +9,15 @@ void BackupWareHouse::act(WareHouse &wareHouse){
         delete backup;
     }
     backup = new WareHouse(wareHouse); //copy constructor
+
     wareHouse.addAction(this);
+
+    complete();
 }
 
 BackupWareHouse *BackupWareHouse::clone() const{
     return new BackupWareHouse();
 }
 string BackupWareHouse::toString() const{
-    return "BackupWareHouse";
+    return "backup "  + statusToString() + "\n";
 }

@@ -25,8 +25,6 @@ int CollectorVolunteer::getCoolDown() const { return coolDown;}
 int CollectorVolunteer::getTimeLeft() const {  return timeLeft;}
 
 bool CollectorVolunteer::decreaseCoolDown() {
-    //testing
-    cout << to_string(getId()) + " <- volunteer cd is " + to_string(timeLeft) << endl;
     if (timeLeft > 0) 
         timeLeft--;
     

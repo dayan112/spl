@@ -8,8 +8,6 @@ using namespace std;
 AddOrder::AddOrder(int id):Action(),customerId(id){ }
 
 void AddOrder::act(WareHouse &wareHouse){
-    //testing
-    cout << wareHouse.customerStatus(customerId) << endl;
     Customer &cus = wareHouse.getCustomer(customerId);
     if(cus.getId() == -1){
          error("Cannot place this order");
@@ -23,8 +21,8 @@ void AddOrder::act(WareHouse &wareHouse){
          wareHouse.addOrder(new_order);
          cus.addOrder(new_order->getId());
     }
-
-    wareHouse.addAction((Action*)this);
+    complete();
+    wareHouse.addAction(this);
 
 }
 
@@ -34,6 +32,7 @@ AddOrder* AddOrder::clone() const{
 }
 
 string AddOrder::toString() const{
-    string str = "Order of custumer: %d",customerId;
+    string str = "order " + std::to_string(customerId) + " " + statusToString() + "\n";
+    return str;
     
 }

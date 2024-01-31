@@ -21,3 +21,10 @@ void Action::error(string errorMsg){
 string Action::getErrorMsg() const{
     return errorMsg;
 }
+
+string Action::statusToString() const{
+    if(status == ActionStatus::COMPLETED){
+        return "completed";
+    }
+    return "error";
+}

@@ -18,8 +18,8 @@ void AddCustomer::act(WareHouse &wareHouse) {
         wareHouse.incrementID(0);
         wareHouse.addCustomer(new_c);
     }
-
-    wareHouse.addAction(this); 
+    complete();
+    wareHouse.addAction(this);
 }
 
 AddCustomer *AddCustomer::clone() const {
@@ -36,7 +36,6 @@ string AddCustomer::toString() const{
     else{
         type = "Civilian";
     }
-    std::string str = "AddCustomer\n customerName:" + customerName+
-             "\ntype: " + type + "\ndistance: %d \nmaxOrders: %d", distance, maxOrders;
+    std::string str = "customer " + customerName+" " + type + " " + std::to_string(distance) + " " + std::to_string(maxOrders) + " " + statusToString() + "\n";
     return str;
 }
