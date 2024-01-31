@@ -3,6 +3,7 @@
 using namespace std;
 Action::Action(){
     errorMsg = "";
+    status = ActionStatus::COMPLETED;
 }
 ActionStatus Action::getStatus() const{
     return status;
